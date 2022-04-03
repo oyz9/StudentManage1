@@ -1,0 +1,24 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
+<!--<mapper namespace="org.scut.java2022.oyz.dao.StudentMapper">-->
+
+<!--   <resultMap id="studentResult " type="org.scut.java2022.oyz.entity.Student">-->
+<!--       <id property="studentNumber"  column="student_number"/>-->
+<!--       <result property="name" column="name"/>-->
+<!--       <result property="gender" column="gender" />-->
+<!--       <result property="grade" column="grade" />-->
+<!--       <result property="className" column="class" />-->
+<!--       <result property="mobileNumber" column="mobile_no" />-->
+<!--   </resultMap>-->
+
+<!--    <select id="query" parameterType="String" resultType="org.scut.java2022.oyz.entity.Student">-->
+<!--        select * from student where 1=1-->
+<!--        <if test="student_number !=null">-->
+<!--            and student_number = #{student_number}-->
+<!--        </if>-->
+<!--        <if test="name != null">-->
+<!--            and name= #{name}-->
+<!--        </if>-->
+<!--    </select>-->
+
+</mapper>
