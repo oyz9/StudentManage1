@@ -14,5 +14,6 @@ public class Result {
     private String code;
     private String msg;
     private Object data;
+    private String token;
 
 }

@@ -88,6 +88,8 @@
             <artifactId>java-jwt</artifactId>
             <version>3.18.3</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
