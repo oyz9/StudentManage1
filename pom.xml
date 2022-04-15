@@ -8,13 +8,13 @@
         <version>2.6.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>oyz</groupId>
-    <artifactId>StudentManage</artifactId>
+    <groupId>org.scut.java2022.oyz</groupId>
+    <artifactId>ouyangzhi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>StudentManage</name>
     <description>StudentManage</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>

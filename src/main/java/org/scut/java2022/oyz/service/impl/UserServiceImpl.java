@@ -7,14 +7,22 @@ import org.scut.java2022.oyz.service.UserService;
 import org.scut.java2022.oyz.util.Jwt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 
 @Service
 public class UserServiceImpl implements UserService {
+    /**
+     * 状态码
+     * 1000: 成功
+     * 1001: token过期, 1002: 非法token
+     * 2001: 用户密码错误, 2002: 用户不存在, 2003: 用户参数缺失
+     * 3001: 信息不存在
+     */
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
@@ -66,6 +74,13 @@ public class UserServiceImpl implements UserService {
 
     public Result register(User user) {
         Result result = new Result();
+        if(userMapper.queryUserByName(user.getUserName())!=null){
+            result.setCode("2004");
+            result.setMsg(user+"已存在");
+            result.setData(user);
+            logger.error("User already exist: {}", user);
+            return result;
+        }
         userMapper.insertUser(user);
         if (userMapper.queryUserByName(user.getUserName()) != null) {
             result.setCode("1000");
@@ -74,7 +89,7 @@ public class UserServiceImpl implements UserService {
             logger.debug("register user: {}", user);
         }
         else {
-            result.setCode("2001");
+            result.setCode("3001");
             result.setMsg(user+"注册失败");
             logger.error("register default user: {}", user);
         }

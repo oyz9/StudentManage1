@@ -8,14 +8,6 @@ import java.util.List;
 
 public interface StudentMapper {
     @Insert("insert into student(student_number,name,gender, grade, class,mobile_no) values(#{studentNumber},#{name},#{gender},#{grade},#{className},#{mobileNumber})")
-    @Results({
-            @Result(property="studentNumber", column="student_number"),
-            @Result(property="name", column="name"),
-            @Result(property="gender", column="gender"),
-            @Result(property="grade", column="grade"),
-            @Result(property="className", column="class"),
-            @Result(property="mobileNumber", column="mobile_no")
-    })
     void addStudent(Student student);
 
     //delete student by number
@@ -28,14 +20,6 @@ public interface StudentMapper {
 
     //update student by number
     @Update("update student set student_number = #{studentNumber},name = #{name},grade = #{grade},class = #{className},mobile_no = #{mobileNumber} where student_number = #{studentNumber}")
-    @Results({
-            @Result(property="studentNumber", column="student_number"),
-            @Result(property="name", column="name"),
-            @Result(property="gender", column="gender"),
-            @Result(property="grade", column="grade"),
-            @Result(property="className", column="class"),
-            @Result(property="mobileNumber", column="mobile_no")
-    })
     void updateStudentByStudentNumber(Student student);
 
     //query student by number

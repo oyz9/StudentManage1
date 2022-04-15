@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class JwtTokenInterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
     private JwtTokenInterceptor authorizationInterceptor;
@@ -17,8 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册拦截规则
         InterceptorRegistration ir = registry.addInterceptor(authorizationInterceptor);
-
-        // 不拦截路径，如：注册、登录、忘记密码等
+        // 不拦截路径，如：注册、登录等
         ir.excludePathPatterns("/api/user/login", "/api/user/register");
         // 拦截路径，开放api请求的路径都拦截
         ir.addPathPatterns("/api/**");

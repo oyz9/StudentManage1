@@ -12,7 +12,7 @@ public interface StudentService {
      * 对应各种条件的增删改查
      */
     Result addStudent(Student student);
-    void batcgAdd(List<Student> students);
+    Result batchAdd(List<Student> students);
 
     Result deleteStudentByNumber(String number);
     Result deleteStudentByName(String name);

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 class StudentManageApplicationTests {
 
@@ -30,7 +30,7 @@ class StudentManageApplicationTests {
 //        for (Student student : students) {
 //            System.out.println(student.toString());
 //        }
-        User user = new User("oyz", "123456",null);
+        User user = new User("oyz", "123",null);
         Result result = userService.login(user);
         System.out.println(result.toString());
     }

@@ -17,7 +17,7 @@ public class Jwt {
     //通过有效时间
     private static int days = 1;
 
-    //密钥（需要后端严密保存）
+    //密钥
     private static String SecretKey = "oyz";
 
     /**

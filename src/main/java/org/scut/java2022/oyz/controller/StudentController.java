@@ -25,16 +25,15 @@ public class StudentController {
     private StudentService studentService;
 
     @RequestMapping("/addOne")
-    public String addOne(@RequestBody Student student){
-        studentService.addStudent(student);
-        return "success";
+    public Result addOne(@RequestBody Student student){
+        return studentService.addStudent(student);
     }
 
     //批量增加学生
     @RequestMapping("/batchAdd")
-    public String batchAll(@RequestBody List<Student> students){
-        studentService.batcgAdd(students);
-        return "success";
+    public Result batchAll(@RequestBody List<Student> students){
+        return  studentService.batchAdd(students);
+
     }
 
 
@@ -92,7 +91,7 @@ public class StudentController {
 
 
     @GetMapping("/queryByPage")
-    public Result queryByPage(int pageNum, int pageSize){
+    public Result queryByPage( int pageNum, int pageSize){
         return studentService.getAllStudentByPage(pageNum, pageSize);
     }
 

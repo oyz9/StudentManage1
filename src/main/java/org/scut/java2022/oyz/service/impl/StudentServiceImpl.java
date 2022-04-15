@@ -28,33 +28,51 @@ public class StudentServiceImpl implements StudentService {
     //增加学生
     public Result addStudent(Student student){
         Result result = new Result();
-        //判断是否插入成功
-        List<Student> students = studentDao.selectAllStudent();
-        boolean flag = true;
-        for (Student student1 : students) {
+        //插入前判断是否已存在
+        for (Student student1 : studentDao.selectAllStudent()) {
             if (student1.getStudentNumber().equals(student.getStudentNumber())) {
-                logger.debug("学号("+student.getStudentNumber()+")的学生信息已存在");
-                result.setCode("3001");
-                result.setMsg("学号("+student.getStudentNumber()+")的学生信息已存在");
-                flag =false;
-                break;
+                logger.debug("学号{}的学生信息已存在",student.getStudentNumber());
+                result.setMsg("学号("+student.getStudentNumber()+")的学生信息已存在,");
+                result.setCode("2004");
+                result.setData(student);
+                return result;
             }
         }
-        if (flag) {
-            studentDao.addStudent(student);
-            logger.debug(student.toString()+"插入成功");
-            result.setCode("1000");
-            result.setMsg("插入成功");
+        studentDao.addStudent(student);
+        //判断是否插入成功
+        for (Student student1 : studentDao.selectAllStudent()) {
+            if (student1.getStudentNumber().equals(student.getStudentNumber())) {
+                logger.info("学号{}的学生信息插入成功",student.getStudentNumber());
+                result.setCode("1000");
+                result.setMsg("学号("+student.getStudentNumber()+")的学生信息插入成功");
+                result.setData(student);
+            }
         }
         return result;
     }
 
 
     //批量增加学生
-    public void batcgAdd(List<Student> students) {
-        for (Student student : students) {
+    public Result batchAdd(List<Student> students) {
+        Result result = new Result();
+        result.setMsg("");
+        result.setData("");
+        out:for (Student student : students) {
+            List<Student> allStudent = studentDao.selectAllStudent();
+            for (Student student1 : allStudent) {
+                if (student1.getStudentNumber().equals(student.getStudentNumber())) {
+                    logger.debug("学号{}的学生信息已存在",student.getStudentNumber());
+                    result.setMsg(result.getMsg()+"学号("+student.getStudentNumber()+")的学生信息已存在,");
+                    continue out;
+                }
+            }
             studentDao.addStudent(student);
+            logger.info("学号{}的学生信息插入成功",student.getStudentNumber());
+            result.setMsg(result.getMsg()+"学号("+student.getStudentNumber()+")的学生信息插入成功,");
+            result.setData(result.getData()+student.toString()+",");
         }
+        result.setCode("1000");
+        return result;
     }
 
     //通过学号删除学生
@@ -102,24 +120,22 @@ public class StudentServiceImpl implements StudentService {
         return result;
     }
 
-    //更新学生,并不知道是否更新成功
+    //更新学生
     public Result updateByNumber(Student student) {
         Result result = new Result();
         studentDao.updateStudentByStudentNumber(student);
         List<Student> students = studentDao.selectAllStudent();
-        boolean flag = true;
         for (Student student1 : students) {
-            if (student1.getStudentNumber().equals(student.getStudentNumber())) {
-                logger.debug("学号("+student.getStudentNumber()+")的学生信息更新失败");
-                result.setCode("3001");
-                result.setMsg("学号("+student.getStudentNumber()+")的学生信息更新失败");
+            if (student1.toString().equals(student.toString())) {
+                logger.debug("学号("+student.getStudentNumber()+")的学生信息更新成功");
+                result.setCode("1000");
+                result.setMsg("学号("+student.getStudentNumber()+")的学生信息更新成功");
+                return result;
             }
         }
-        if (flag) {
-            logger.debug("学号("+student.getStudentNumber()+")的学生信息更新成功");
-            result.setCode("1000");
-            result.setMsg("学号("+student.getStudentNumber()+")的学生信息更新成功");
-        }
+        logger.debug("学号("+student.getStudentNumber()+")的学生信息更新失败");
+        result.setCode("3001");
+        result.setMsg("学号("+student.getStudentNumber()+")的学生信息更新失败");
         return result;
     }
 
